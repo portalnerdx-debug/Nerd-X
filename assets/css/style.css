@@ -149,39 +149,81 @@ nav a:hover{
 HERO
 ==========================*/
 
+/*==========================
+HERO PREMIUM
+==========================*/
+
 .hero{
 
-    height:600px;
+    position:relative;
+
+    min-height:650px;
 
     display:flex;
 
     align-items:center;
 
+    overflow:hidden;
+
     background:
-
-    linear-gradient(rgba(0,0,0,.60),rgba(0,0,0,.70)),
-
-    url("https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?auto=format&fit=crop&w=1800&q=80");
-
-    background-size:cover;
-
-    background-position:center;
+        radial-gradient(circle at top right,#00BFFF22,transparent 35%),
+        radial-gradient(circle at bottom left,#E5091422,transparent 30%),
+        linear-gradient(135deg,#0D1117,#111827,#0D1117);
 
 }
 
-.hero-text{
+.hero-overlay{
 
-    max-width:650px;
+    position:absolute;
+
+    inset:0;
+
+    background:
+        linear-gradient(rgba(0,0,0,.20),rgba(0,0,0,.65));
+
+}
+
+.hero-content{
+
+    position:relative;
+
+    z-index:2;
+
+}
+
+.hero-info{
+
+    max-width:700px;
+
+}
+
+.hero-category{
+
+    display:inline-block;
+
+    padding:8px 18px;
+
+    border-radius:40px;
+
+    background:#E50914;
+
+    color:white;
+
+    font-weight:700;
+
+    margin-bottom:25px;
 
 }
 
 .hero h1{
 
-    font-size:60px;
+    font-size:64px;
 
-    margin-bottom:20px;
+    line-height:1.1;
 
-    font-family:Orbitron;
+    margin-bottom:25px;
+
+    font-family:Orbitron,sans-serif;
 
 }
 
@@ -189,11 +231,47 @@ HERO
 
     font-size:20px;
 
-    line-height:1.7;
+    line-height:1.8;
 
-    color:var(--gray);
+    color:#C9D1D9;
 
     margin-bottom:35px;
+
+}
+
+.hero-buttons{
+
+    display:flex;
+
+    gap:20px;
+
+    flex-wrap:wrap;
+
+}
+
+.btn-outline{
+
+    display:inline-block;
+
+    padding:16px 34px;
+
+    border:2px solid #00BFFF;
+
+    border-radius:50px;
+
+    color:#00BFFF;
+
+    font-weight:700;
+
+    transition:.3s;
+
+}
+
+.btn-outline:hover{
+
+    background:#00BFFF;
+
+    color:#000;
 
 }
 
