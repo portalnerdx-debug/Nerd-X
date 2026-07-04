@@ -24,7 +24,11 @@ async function loadPosts() {
     }
 
     list.innerHTML = "";
-    posts.forEach((post, index) => {
+    const sortedPosts = posts
+        .map((post, originalIndex) => ({ post, originalIndex }))
+        .sort((a, b) => (Date.parse(b.post.data) || 0) - (Date.parse(a.post.data) || 0));
+
+    sortedPosts.forEach(({ post, originalIndex: index }) => {
         const row = document.createElement("div");
         row.className = "recent-post post-row";
         row.innerHTML = `

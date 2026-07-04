@@ -61,11 +61,39 @@ const NerdxPublish = (() => {
 
         function inline(text) {
             let t = escapeHtml(text);
+
+            // Marca posições de trecho já convertido em link, pra não tentar
+            // linkar de novo o que já é um <a>.
+            const placeholders = [];
+            function stash(html) {
+                const key = `\u0000LINK${placeholders.length}\u0000`;
+                placeholders.push(html);
+                return key;
+            }
+
+            // 1) Sintaxe [texto do link](https://site.com ou mailto:...)
             t = t.replace(/\[([^\]]+)\]\((https?:\/\/[^\s)]+|mailto:[^\s)]+)\)/g, (m, label, url) => {
                 const external = url.startsWith("http");
-                return `<a href="${url}"${external ? ' target="_blank" rel="noopener noreferrer"' : ""}>${label}</a>`;
+                return stash(`<a href="${url}"${external ? ' target="_blank" rel="noopener noreferrer"' : ""}>${label}</a>`);
             });
+
+            // 2) URL "solta" colada direto no texto (sem colchetes), com ou sem
+            // protocolo (https://exemplo.com, http://exemplo.com ou www.exemplo.com).
+            t = t.replace(/(^|[\s(])((https?:\/\/|www\.)[^\s<]+[^\s<.,;:!?)])/g, (m, pre, url) => {
+                const href = url.startsWith("http") ? url : `https://${url}`;
+                return `${pre}` + stash(`<a href="${href}" target="_blank" rel="noopener noreferrer">${url}</a>`);
+            });
+
+            // 3) E-mail solto (sem mailto: explícito)
+            t = t.replace(/(^|[\s(])([\w.+-]+@[\w-]+\.[a-z]{2,})(?=[\s)<]|$)/gi, (m, pre, email) => {
+                return `${pre}` + stash(`<a href="mailto:${email}">${email}</a>`);
+            });
+
             t = t.replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>");
+
+            // Restaura os links convertidos.
+            t = t.replace(/\u0000LINK(\d+)\u0000/g, (m, i) => placeholders[Number(i)]);
+
             return t;
         }
     }
