@@ -53,6 +53,20 @@ document.addEventListener("DOMContentLoaded", async () => {
     // Os 8 artigos mais recentes do site inteiro substituem o bloco estático da home.
     const latest = sorted.slice(0, 8);
 
+    // Destaque grande do topo (hero) — sempre o artigo mais recente do site.
+    const heroSection = document.querySelector(".hero");
+    if (heroSection && latest.length) {
+        const top = latest[0];
+        const heroCategory = heroSection.querySelector(".hero-category");
+        const heroTitle = heroSection.querySelector("h1");
+        const heroText = heroSection.querySelector(".hero-info p");
+        const heroMainBtn = heroSection.querySelector(".hero-buttons .btn");
+        if (heroCategory) heroCategory.textContent = `🔥 ${top.categoria}`;
+        if (heroTitle) heroTitle.textContent = top.titulo;
+        if (heroText) heroText.textContent = top.resumo;
+        if (heroMainBtn) heroMainBtn.setAttribute("href", top.url);
+    }
+
     const newsGrid = document.getElementById("home-news-grid");
     const latestGrid = document.getElementById("home-latest-grid");
 
