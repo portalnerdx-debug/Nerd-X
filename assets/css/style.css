@@ -449,13 +449,19 @@ nav ul{
 
 .hero{
 
-    height:500px;
+    height:520px;
 
 }
 
 .hero h1{
 
     font-size:42px;
+
+}
+
+.hero-buttons{
+
+    flex-direction:column;
 
 }
 
