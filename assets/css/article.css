@@ -18,4 +18,9 @@
 .article-body { max-width: 72ch; font-size: var(--fs-lg); }
 .article-body p { margin-bottom: var(--space-5); color: var(--color-paper); }
 .article-body h2 { font-size: var(--fs-4xl); text-transform: uppercase; margin-block: var(--space-8) var(--space-4); }
+.article-body h3 { font-size: var(--fs-2xl); text-transform: uppercase; margin-block: var(--space-6) var(--space-3); color: var(--color-paper); }
+.article-body ul { margin: 0 0 var(--space-5) var(--space-5); list-style: disc; }
+.article-body li { margin-bottom: var(--space-2); color: var(--color-paper); }
+.article-body a { color: var(--color-volt); text-decoration: underline; text-underline-offset: 3px; }
+.article-body a:hover, .article-body a:focus-visible { color: var(--color-signal); }
 .article-share { display: flex; gap: var(--space-3); margin-block: var(--space-8); }

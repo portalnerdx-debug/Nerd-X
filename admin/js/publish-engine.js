@@ -60,7 +60,13 @@ const NerdxPublish = (() => {
         return html || "<p></p>";
 
         function inline(text) {
-            return escapeHtml(text).replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>");
+            let t = escapeHtml(text);
+            t = t.replace(/\[([^\]]+)\]\((https?:\/\/[^\s)]+|mailto:[^\s)]+)\)/g, (m, label, url) => {
+                const external = url.startsWith("http");
+                return `<a href="${url}"${external ? ' target="_blank" rel="noopener noreferrer"' : ""}>${label}</a>`;
+            });
+            t = t.replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>");
+            return t;
         }
     }
 
