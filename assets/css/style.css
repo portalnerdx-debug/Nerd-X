@@ -95,11 +95,19 @@ header .container{
 
 .logo a{
 
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
     font-family:Orbitron,sans-serif;
 
     font-size:34px;
 
     font-weight:700;
+
+}
 
 }
 
@@ -412,6 +420,7 @@ nav ul{
     gap:15px;
 
 }
+}
 
 /*==========================
 TOP BAR
@@ -454,5 +463,91 @@ TOP BAR
     color:#9CA3AF;
 
 }
+
+}
+
+/*==========================
+HEADER PREMIUM
+==========================*/
+
+.logo{
+
+    display:flex;
+
+    align-items:center;
+
+}
+
+.logo-x{
+
+    width:48px;
+
+    height:48px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    border-radius:12px;
+
+    background:linear-gradient(135deg,#00BFFF,#0066ff);
+
+    color:white;
+
+    font-size:28px;
+
+    font-family:Orbitron;
+
+    font-weight:bold;
+
+}
+
+.logo-text{
+
+    font-size:30px;
+
+    font-family:Orbitron;
+
+    letter-spacing:2px;
+
+}
+
+.header-actions{
+
+    display:flex;
+
+    gap:15px;
+
+}
+
+.header-actions button{
+
+    width:42px;
+
+    height:42px;
+
+    border:none;
+
+    border-radius:50%;
+
+    background:#1F2937;
+
+    color:white;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+    font-size:18px;
+
+}
+
+.header-actions button:hover{
+
+    background:#00BFFF;
+
+    transform:scale(1.1);
 
 }
