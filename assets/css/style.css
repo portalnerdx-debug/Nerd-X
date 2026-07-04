@@ -437,6 +437,12 @@ header .container{
 
 }
 
+.news-grid{
+
+    grid-template-columns:1fr;
+
+}
+
 nav ul{
 
     margin-top:20px;
