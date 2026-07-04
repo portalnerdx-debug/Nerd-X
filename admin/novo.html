@@ -16,6 +16,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
 <script src="https://kit.fontawesome.com/6b8d4b67f7.js" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
 
 </head>
 
@@ -61,9 +62,11 @@
 
 <h1>Novo Artigo</h1>
 
-<p>Preencha os dados do novo artigo.</p>
+<p>Preencha os dados do novo artigo. Ao publicar, o painel gera os arquivos reais do site (artigo + categoria + lista de posts) para você baixar e subir no GitHub.</p>
 
 </header>
+
+<div id="status" class="status-box" style="display:none;"></div>
 
 <form id="postForm">
 
@@ -81,12 +84,12 @@ required>
 
 <div class="form-group">
 
-<label>Slug</label>
+<label>Slug (usado na URL)</label>
 
 <input
 type="text"
 id="slug"
-readonly>
+placeholder="gerado automaticamente a partir do título">
 
 </div>
 
@@ -96,11 +99,7 @@ readonly>
 
 <select id="categoria">
 
-<option>Filmes</option>
-
-<option>Séries</option>
-
-<option>Games</option>
+<option>Notícias</option>
 
 <option>Marvel</option>
 
@@ -108,7 +107,9 @@ readonly>
 
 <option>Tecnologia</option>
 
-<option>Anime</option>
+<option>Ficção Científica</option>
+
+<option>Reviews</option>
 
 </select>
 
@@ -134,6 +135,8 @@ type="file"
 id="imagem"
 accept="image/*">
 
+<div id="imagemPreview" class="image-preview"></div>
+
 </div>
 
 <div class="form-group">
@@ -143,7 +146,7 @@ accept="image/*">
 <textarea
 id="descricao"
 rows="4"
-placeholder="Resumo do artigo"></textarea>
+placeholder="Resumo do artigo (aparece nos cards e no compartilhamento)"></textarea>
 
 </div>
 
@@ -154,7 +157,7 @@ placeholder="Resumo do artigo"></textarea>
 <textarea
 id="conteudo"
 rows="18"
-placeholder="Escreva seu artigo..."></textarea>
+placeholder="Escreva seu artigo... Deixe uma linha em branco entre parágrafos. Use ## para subtítulos, - para listas e **texto** para negrito."></textarea>
 
 </div>
 
@@ -166,7 +169,8 @@ placeholder="Escreva seu artigo..."></textarea>
 
 <input
 type="text"
-id="seoTitle">
+id="seoTitle"
+placeholder="Se vazio, usa o título do artigo">
 
 </div>
 
@@ -176,7 +180,8 @@ id="seoTitle">
 
 <textarea
 id="seoDescription"
-rows="3"></textarea>
+rows="3"
+placeholder="Se vazio, usa o resumo"></textarea>
 
 </div>
 
@@ -192,6 +197,7 @@ Publicar Artigo
 
 </div>
 
+<script src="js/publish-engine.js"></script>
 <script src="js/novo.js"></script>
 
 </body>

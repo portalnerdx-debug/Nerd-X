@@ -7,13 +7,22 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     try {
 
-        const response = await fetch("../data/posts.json");
+        const response = await fetch("../api/posts.json", { cache: "no-store" });
 
         if (!response.ok) {
             throw new Error("posts.json não encontrado");
         }
 
-        const posts = await response.json();
+        const text = await response.text();
+        const posts = text.trim() ? JSON.parse(text) : [];
+
+        if (!posts.length) {
+            totalPosts.textContent = "0";
+            totalCategorias.textContent = "0";
+            totalAutores.textContent = "0";
+            recentPosts.innerHTML = `<p style="color:#94a3b8;">Nenhum artigo publicado ainda. Vá em "Novo Artigo" para criar o primeiro.</p>`;
+            return;
+        }
 
         totalPosts.textContent = posts.length;
 
@@ -26,6 +35,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         recentPosts.innerHTML = "";
 
         posts
+            .slice()
             .sort((a, b) => new Date(b.data) - new Date(a.data))
             .slice(0, 5)
             .forEach(post => {
