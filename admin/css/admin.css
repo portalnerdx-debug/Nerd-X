@@ -289,3 +289,31 @@ header p{
 }
 
 }
+
+.recent-post{
+
+    padding:15px;
+
+    border-bottom:1px solid var(--border);
+
+}
+
+.recent-post:last-child{
+
+    border:none;
+
+}
+
+.recent-post h3{
+
+    font-size:17px;
+
+    margin-bottom:5px;
+
+}
+
+.recent-post small{
+
+    color:var(--text2);
+
+}
