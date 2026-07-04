@@ -8,7 +8,7 @@
 document.addEventListener("DOMContentLoaded", async () => {
     let posts;
     try {
-        const res = await fetch("api/posts.json", { cache: "no-store" });
+        const res = await fetch(`api/posts.json?v=${Date.now()}`, { cache: "no-store" });
         if (!res.ok) return;
         const text = await res.text();
         if (!text.trim()) return;

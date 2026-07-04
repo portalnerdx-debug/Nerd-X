@@ -58,7 +58,7 @@ async function removePost(posts, index) {
     updatedPosts.splice(index, 1);
 
     const categoryPath = `../categorias/${post.categoriaSlug}/index.html`;
-    const currentCategoryHtml = await fetch(categoryPath, { cache: "no-store" })
+    const currentCategoryHtml = await fetch(`${categoryPath}?v=${Date.now()}`, { cache: "no-store" })
         .then(r => (r.ok ? r.text() : null))
         .catch(() => null);
     const updatedCategoryHtml = currentCategoryHtml

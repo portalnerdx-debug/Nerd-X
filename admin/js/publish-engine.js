@@ -115,7 +115,7 @@ const NerdxPublish = (() => {
 
     async function fetchExistingJSON(relativePath, fallback) {
         try {
-            const res = await fetch(relativePath, { cache: "no-store" });
+            const res = await fetch(`${relativePath}?v=${Date.now()}`, { cache: "no-store" });
             if (!res.ok) return fallback;
             const text = await res.text();
             if (!text.trim()) return fallback;
