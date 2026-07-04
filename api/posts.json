@@ -1,0 +1,12 @@
+[
+  {
+    "titulo": "teste",
+    "slug": "teste",
+    "categoria": "Notícias",
+    "categoriaSlug": "noticias",
+    "autor": "Nerd-X",
+    "data": "2026-07-04",
+    "resumo": "sdfsdfs",
+    "url": "categorias/noticias/teste.html"
+  }
+]
