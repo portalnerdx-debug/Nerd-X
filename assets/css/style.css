@@ -413,4 +413,46 @@ nav ul{
 
 }
 
+/*==========================
+TOP BAR
+==========================*/
+
+.top-bar{
+
+    background:#000;
+
+    color:#C9D1D9;
+
+    font-size:14px;
+
+    border-bottom:1px solid #222;
+
+}
+
+.top-bar-content{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    height:38px;
+
+}
+
+.top-left{
+
+    color:#00BFFF;
+
+    font-weight:600;
+
+}
+
+.top-right{
+
+    color:#9CA3AF;
+
+}
+
 }
