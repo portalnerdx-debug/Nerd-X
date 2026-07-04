@@ -74,5 +74,29 @@ document.addEventListener("DOMContentLoaded", () => {
         );
 
     }
+   // Botões do Header
+   const searchBtn = document.querySelector(".search-btn");
+
+   if (searchBtn) {
+
+       searchBtn.addEventListener("click", () => {
+
+           alert("🔍 A busca será implementada nas próximas etapas.");
+
+       });
+
+   }
+
+   const themeBtn = document.querySelector(".theme-btn");
+
+   if (themeBtn) {
+
+       themeBtn.addEventListener("click", () => {
+
+           alert("🌙 O modo escuro/claro será implementado em breve.");
+
+       });
+
+   }
 
 });
