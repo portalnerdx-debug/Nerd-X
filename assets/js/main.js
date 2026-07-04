@@ -56,5 +56,23 @@ document.addEventListener("DOMContentLoaded", () => {
         });
 
     }
+        // Data atual
+    const date = document.getElementById("current-date");
+
+    if (date) {
+
+        const today = new Date();
+
+        date.innerHTML = today.toLocaleDateString(
+            "pt-BR",
+            {
+                weekday: "long",
+                day: "2-digit",
+                month: "long",
+                year: "numeric"
+            }
+        );
+
+    }
 
 });
