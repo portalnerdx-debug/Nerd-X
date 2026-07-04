@@ -641,3 +641,164 @@ HEADER PREMIUM
     transform:scale(1.1);
 
 }
+
+/*==========================
+NEWS GRID
+==========================*/
+
+.news-section{
+
+    padding:90px 0;
+
+}
+
+.section-title{
+
+    font-size:40px;
+
+    font-family:Orbitron;
+
+    margin-bottom:40px;
+
+}
+
+.news-grid{
+
+    display:grid;
+
+    grid-template-columns:2fr 1fr;
+
+    gap:30px;
+
+}
+
+.news-feature{
+
+    background:#161B22;
+
+    border-radius:16px;
+
+    overflow:hidden;
+
+    transition:.35s;
+
+}
+
+.news-feature:hover{
+
+    transform:translateY(-8px);
+
+}
+
+.news-image{
+
+    height:320px;
+
+    background:
+        linear-gradient(135deg,#00BFFF,#004a80);
+
+}
+
+.news-content{
+
+    padding:30px;
+
+}
+
+.news-content h3{
+
+    font-size:34px;
+
+    margin:20px 0;
+
+}
+
+.news-content p{
+
+    color:#C9D1D9;
+
+    line-height:1.8;
+
+}
+
+.read-more{
+
+    display:inline-block;
+
+    margin-top:25px;
+
+    color:#00BFFF;
+
+    font-weight:700;
+
+}
+
+.news-side{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:20px;
+
+}
+
+.mini-card{
+
+    background:#161B22;
+
+    padding:25px;
+
+    border-radius:16px;
+
+    transition:.35s;
+
+}
+
+.mini-card:hover{
+
+    transform:translateX(8px);
+
+}
+
+.tag{
+
+    display:inline-block;
+
+    padding:6px 14px;
+
+    border-radius:20px;
+
+    font-size:12px;
+
+    font-weight:bold;
+
+    margin-bottom:15px;
+
+}
+
+.marvel{
+
+    background:#E62429;
+
+}
+
+.dc{
+
+    background:#0066ff;
+
+}
+
+.tech{
+
+    background:#00BFFF;
+
+    color:#000;
+
+}
+
+.scifi{
+
+    background:#7C3AED;
+
+}
