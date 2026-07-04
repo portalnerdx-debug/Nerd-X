@@ -3,204 +3,240 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>Nerd X | O universo geek sem limites</title>
+    <meta name="description" content="Nerd X: notícias, reviews, teorias e análises sobre Marvel, DC, tecnologia e ficção científica, publicadas todos os dias.">
+    <meta name="theme-color" content="#0D0F14">
+    <link rel="canonical" href="https://nerdx.com.br/">
 
-    <meta name="description" content="Portal Nerd X - Notícias, Reviews, Marvel, DC, Tecnologia e Ficção Científica.">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Nerd X">
+    <meta property="og:title" content="Nerd X | O universo geek sem limites">
+    <meta property="og:description" content="Notícias, reviews, teorias e análises sobre Marvel, DC, tecnologia e ficção científica.">
+    <meta property="og:url" content="https://nerdx.com.br/">
+    <meta property="og:locale" content="pt_BR">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Nerd X | O universo geek sem limites">
+    <meta name="twitter:description" content="Notícias, reviews, teorias e análises sobre Marvel, DC, tecnologia e ficção científica.">
 
+    <link rel="icon" href="favicon.ico">
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
+<a href="#conteudo" class="skip-link">Pular para o conteúdo</a>
+
 <div class="top-bar">
     <div class="container top-bar-content">
-
-        <div class="top-left">
-            📰 Últimas: Bem-vindo ao Nerd X!
-        </div>
-
-        <div class="top-right">
-            <span id="current-date"></span>
-        </div>
-
+        <div class="top-left">📰 Últimas: Bem-vindo ao novo Nerd X!</div>
+        <div class="top-right"><span id="current-date"></span></div>
     </div>
 </div>
 
 <header>
-
     <div class="container">
-
         <div class="logo">
-
             <a href="index.html">
-
-                <span class="logo-x">X</span>
-
-                <span class="logo-text">NERD</span>
-
+                <span class="logo-x">X</span><span class="logo-text">NERD</span>
             </a>
-
         </div>
 
-        <nav>
+        <button class="menu-toggle" aria-label="Abrir menu" aria-expanded="false" aria-controls="main-nav">
+            <span></span><span></span><span></span>
+        </button>
 
+        <nav id="main-nav">
             <ul>
-
-                <li><a href="#">Home</a></li>
-
-                <li><a href="#">Notícias</a></li>
-
-                <li><a href="#">Marvel</a></li>
-
-                <li><a href="#">DC</a></li>
-
-                <li><a href="#">Tecnologia</a></li>
-
-                <li><a href="#">Ficção</a></li>
-
-                <li><a href="#">Reviews</a></li>
-
-                <li><a href="#">Contato</a></li>
-
+                <li><a href="index.html" aria-current="page">Home</a></li>
+                <li><a href="categorias/noticias/index.html">Notícias</a></li>
+                <li><a href="categorias/marvel/index.html">Marvel</a></li>
+                <li><a href="categorias/dc/index.html">DC</a></li>
+                <li><a href="categorias/tecnologia/index.html">Tecnologia</a></li>
+                <li><a href="categorias/ficcao/index.html">Ficção</a></li>
+                <li><a href="categorias/reviews/index.html">Reviews</a></li>
+                <li><a href="contato.html">Contato</a></li>
             </ul>
-
         </nav>
 
         <div class="header-actions">
-
-            <button class="search-btn">🔍</button>
-
-            <button class="theme-btn">🌙</button>
-
+            <button class="search-btn" aria-label="Buscar no site">🔍</button>
+            <button class="theme-btn" aria-pressed="false" aria-label="Ativar modo claro">
+                <span class="icon-sun">🌙</span><span class="icon-moon">☀️</span>
+            </button>
         </div>
-
     </div>
-
 </header>
 
-
-<section class="hero">
-
-    <div class="hero-overlay"></div>
-
-    <div class="container hero-content">
-
-        <div class="hero-info">
-
-            <span class="hero-category">🔥 EM DESTAQUE</span>
-
-            <h1>
-                Superman inaugura uma nova era para a DC Studios
-            </h1>
-
-            <p>
-                Descubra tudo sobre o novo universo cinematográfico da DC,
-                os próximos lançamentos, teorias dos fãs e o impacto da nova
-                fase comandada por James Gunn.
-            </p>
-
-            <div class="hero-buttons">
-
-                <a href="#" class="btn">
-                    Ler Matéria
-                </a>
-
-                <a href="#" class="btn-outline">
-                    Ver Notícias
-                </a>
-
-            </div>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-<section class="news-section">
-
-    <div class="container">
-
-        <h2 class="section-title">Últimas Notícias</h2>
-
-        <div class="news-grid">
-
-            <article class="news-feature">
-
-                <div class="news-image"></div>
-
-                <div class="news-content">
-
-                    <span class="tag marvel">MARVEL</span>
-
-                    <h3>Vingadores: novos filmes começam uma nova saga</h3>
-
-                    <p>
-                        A Marvel Studios prepara uma nova fase com heróis,
-                        equipes inéditas e grandes eventos.
-                    </p>
-
-                    <a href="#" class="read-more">
-                        Leia mais →
-                    </a>
-
+<main id="conteudo">
+    <section class="hero">
+        <div class="hero-overlay"></div>
+        <div class="container hero-content">
+            <div class="hero-info">
+                <span class="hero-category">🔥 Em destaque</span>
+                <h1>Superman inaugura uma nova era para a DC Studios</h1>
+                <p>
+                    Descubra tudo sobre o novo universo cinematográfico da DC, os próximos
+                    lançamentos, as teorias dos fãs e o impacto da fase comandada por James Gunn.
+                </p>
+                <div class="hero-buttons">
+                    <a href="categorias/dc/index.html" class="btn">Ler matéria</a>
+                    <a href="categorias/noticias/index.html" class="btn-outline">Ver notícias</a>
                 </div>
+            </div>
+        </div>
+    </section>
 
-            </article>
-
-            <div class="news-side">
-
-                <article class="mini-card">
-
-                    <span class="tag dc">DC</span>
-
-                    <h4>Batman terá novo filme em desenvolvimento</h4>
-
-                </article>
-
-                <article class="mini-card">
-
-                    <span class="tag tech">TECNOLOGIA</span>
-
-                    <h4>IA transforma a produção de filmes</h4>
-
-                </article>
-
-                <article class="mini-card">
-
-                    <span class="tag scifi">FICÇÃO</span>
-
-                    <h4>Duna continua conquistando fãs</h4>
-
-                </article>
-
+    <section class="news-section">
+        <div class="container">
+            <div class="section-title-wrap">
+                <div>
+                    <span class="section-eyebrow">// Cobertura do dia</span>
+                    <h2 class="section-title">Últimas notícias</h2>
+                </div>
+                <a href="categorias/noticias/index.html" class="section-link">Ver todas →</a>
             </div>
 
+            <div class="news-grid">
+                <article class="news-feature" data-animate>
+                    <div class="news-image" role="img" aria-label="Ilustração da nova fase da Marvel Studios"></div>
+                    <div class="news-content">
+                        <span class="tag marvel">Marvel</span>
+                        <h3>Vingadores: novos filmes começam uma nova saga</h3>
+                        <p>A Marvel Studios prepara uma nova fase com heróis, equipes inéditas e grandes eventos que devem redefinir o UCM nos próximos anos.</p>
+                        <a href="categorias/marvel/index.html" class="read-more">Leia mais →</a>
+                    </div>
+                </article>
+
+                <div class="news-side">
+                    <article class="mini-card" data-animate>
+                        <span class="tag dc">DC</span>
+                        <h4><a href="categorias/dc/index.html">Batman terá novo filme em desenvolvimento</a></h4>
+                    </article>
+                    <article class="mini-card" data-animate>
+                        <span class="tag tech">Tecnologia</span>
+                        <h4><a href="categorias/tecnologia/index.html">IA transforma a produção de filmes</a></h4>
+                    </article>
+                    <article class="mini-card" data-animate>
+                        <span class="tag scifi">Ficção</span>
+                        <h4><a href="categorias/ficcao/index.html">Duna continua conquistando fãs pelo mundo</a></h4>
+                    </article>
+                </div>
+            </div>
         </div>
+    </section>
 
-    </div>
+    <section class="trending">
+        <div class="container">
+            <span class="section-eyebrow">// Em alta agora</span>
+            <div class="trending-list">
+                <a href="categorias/marvel/index.html">#Vingadores</a>
+                <a href="categorias/dc/index.html">#Superman</a>
+                <a href="categorias/dc/index.html">#Batman</a>
+                <a href="categorias/tecnologia/ia.html">#InteligênciaArtificial</a>
+                <a href="categorias/ficcao/duna.html">#Duna</a>
+                <a href="categorias/ficcao/starwars.html">#StarWars</a>
+                <a href="categorias/reviews/index.html">#Reviews</a>
+            </div>
+        </div>
+    </section>
 
-</section>
+    <section>
+        <div class="container">
+            <div class="section-title-wrap">
+                <div>
+                    <span class="section-eyebrow">// Explore</span>
+                    <h2 class="section-title">Categorias</h2>
+                </div>
+            </div>
+            <div class="categories-strip">
+                <a class="category-pill" href="categorias/noticias/index.html"><span class="icon">📰</span><span>Notícias</span></a>
+                <a class="category-pill" href="categorias/marvel/index.html"><span class="icon">🕷️</span><span>Marvel</span></a>
+                <a class="category-pill" href="categorias/dc/index.html"><span class="icon">🦇</span><span>DC</span></a>
+                <a class="category-pill" href="categorias/tecnologia/index.html"><span class="icon">💻</span><span>Tecnologia</span></a>
+                <a class="category-pill" href="categorias/ficcao/index.html"><span class="icon">🚀</span><span>Ficção</span></a>
+                <a class="category-pill" href="categorias/reviews/index.html"><span class="icon">⭐</span><span>Reviews</span></a>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="container">
+            <div class="newsletter-box" data-animate>
+                <div>
+                    <h2>Receba as novidades geek no seu e-mail</h2>
+                    <p>Sem spam: só as matérias mais importantes de Marvel, DC, tecnologia e ficção científica, direto na sua caixa de entrada.</p>
+                </div>
+                <div>
+                    <form class="newsletter-form" novalidate>
+                        <label for="newsletter-email" class="sr-only">Seu e-mail</label>
+                        <input id="newsletter-email" type="email" placeholder="seuemail@exemplo.com" required>
+                        <button type="submit" class="btn">Inscrever-se</button>
+                    </form>
+                    <p class="form-feedback" role="status" aria-live="polite"></p>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
 
 <footer>
-
     <div class="container">
-
-        <h2>Nerd X</h2>
-
-        <p>
-
-            © 2026 Nerd X
-
-            Todos os direitos reservados.
-
-        </p>
-
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <div class="logo"><a href="index.html"><span class="logo-x">X</span><span class="logo-text">NERD</span></a></div>
+                <p>Notícias, reviews e análises do universo geek — Marvel, DC, tecnologia e ficção científica, todos os dias.</p>
+                <div class="footer-social">
+                    <a href="#" aria-label="Nerd X no Instagram">📷</a>
+                    <a href="#" aria-label="Nerd X no X (Twitter)">🐦</a>
+                    <a href="#" aria-label="Nerd X no YouTube">▶️</a>
+                    <a href="#" aria-label="Nerd X no Discord">🎮</a>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h5>Categorias</h5>
+                <ul>
+                    <li><a href="categorias/marvel/index.html">Marvel</a></li>
+                    <li><a href="categorias/dc/index.html">DC</a></li>
+                    <li><a href="categorias/tecnologia/index.html">Tecnologia</a></li>
+                    <li><a href="categorias/ficcao/index.html">Ficção Científica</a></li>
+                    <li><a href="categorias/reviews/index.html">Reviews</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h5>Institucional</h5>
+                <ul>
+                    <li><a href="sobre.html">Sobre nós</a></li>
+                    <li><a href="contato.html">Contato</a></li>
+                    <li><a href="termos.html">Termos de uso</a></li>
+                    <li><a href="privacidade.html">Privacidade</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h5>Comunidade</h5>
+                <ul>
+                    <li><a href="newsletter/index.html">Newsletter</a></li>
+                    <li><a href="comentarios/index.html">Comentários</a></li>
+                    <li><a href="pesquisa.html">Buscar</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <span>© 2026 Nerd X. Todos os direitos reservados.</span>
+            <span>Feito com 🖤 para quem vive o universo geek.</span>
+        </div>
     </div>
-
 </footer>
 
-<script src="assets/js/main.js"></script>
+<button class="scroll-top-btn" aria-label="Voltar ao topo">↑</button>
 
+<script src="assets/js/analytics.js"></script>
+<script src="assets/js/theme.js"></script>
+<script src="assets/js/darkmode.js"></script>
+<script src="assets/js/header.js"></script>
+<script src="assets/js/menu.js"></script>
+<script src="assets/js/scroll.js"></script>
+<script src="assets/js/scrolltop.js"></script>
+<script src="assets/js/search.js"></script>
+<script src="assets/js/newsletter.js"></script>
+<script src="assets/js/lazyload.js"></script>
+<script src="assets/js/main.js"></script>
 </body>
 </html>
