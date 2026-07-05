@@ -100,11 +100,26 @@ form.addEventListener("submit", async (e) => {
             url: `categorias/${post.categoriaSlug}/${post.slug}.html`
         });
 
+        // 4) Home (index.html), com o destaque e os cards das últimas
+        // postagens atualizados — igual à página da categoria.
+        const sortedPosts = postsArray.slice().sort(
+            (a, b) => (Date.parse(b.data) || 0) - (Date.parse(a.data) || 0)
+        );
+        const currentHomeHtml = await fetch(`../index.html?v=${Date.now()}`, { cache: "no-store" })
+            .then(r => (r.ok ? r.text() : null))
+            .catch(() => null);
+        const updatedHomeHtml = currentHomeHtml
+            ? NerdxPublish.updateHomeIndexHTML(currentHomeHtml, sortedPosts)
+            : null;
+
         // Empacota tudo em um .zip
         const zip = new JSZip();
         zip.file(`categorias/${post.categoriaSlug}/${post.slug}.html`, articleHtml);
         if (updatedCategoryHtml) {
             zip.file(`categorias/${post.categoriaSlug}/index.html`, updatedCategoryHtml);
+        }
+        if (updatedHomeHtml) {
+            zip.file("index.html", updatedHomeHtml);
         }
         zip.file("api/posts.json", JSON.stringify(postsArray, null, 2));
 
@@ -119,6 +134,9 @@ form.addEventListener("submit", async (e) => {
                 ${updatedCategoryHtml
                     ? `<li><code>categorias/${post.categoriaSlug}/index.html</code> — a página da categoria, já com o novo artigo listado</li>`
                     : `<li><em>Não consegui carregar a página atual da categoria (rode isso no site publicado, não localmente) — envie o artigo e adicione o card na categoria manualmente.</em></li>`}
+                ${updatedHomeHtml
+                    ? `<li><code>index.html</code> — a home, com o destaque e os cards das últimas postagens atualizados</li>`
+                    : `<li><em>Não consegui carregar a home atual (rode isso no site publicado, não localmente) — o destaque da home não foi atualizado.</em></li>`}
                 <li><code>api/posts.json</code> — lista de artigos atualizada</li>
             </ul>
             <p><strong>Para publicar de verdade:</strong> extraia o zip e suba esses arquivos para o seu repositório do GitHub (substituindo os existentes), depois faça commit e push. O GitHub Pages atualiza o site em 1–2 minutos.</p>

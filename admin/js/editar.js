@@ -65,17 +65,30 @@ async function removePost(posts, index) {
         ? NerdxPublish.removeCategoryCard(currentCategoryHtml, post.slug)
         : null;
 
+    const sortedPosts = updatedPosts.slice().sort(
+        (a, b) => (Date.parse(b.data) || 0) - (Date.parse(a.data) || 0)
+    );
+    const currentHomeHtml = await fetch(`../index.html?v=${Date.now()}`, { cache: "no-store" })
+        .then(r => (r.ok ? r.text() : null))
+        .catch(() => null);
+    const updatedHomeHtml = currentHomeHtml
+        ? NerdxPublish.updateHomeIndexHTML(currentHomeHtml, sortedPosts)
+        : null;
+
     const zip = new JSZip();
     zip.file("api/posts.json", JSON.stringify(updatedPosts, null, 2));
     if (updatedCategoryHtml) {
         zip.file(`categorias/${post.categoriaSlug}/index.html`, updatedCategoryHtml);
+    }
+    if (updatedHomeHtml) {
+        zip.file("index.html", updatedHomeHtml);
     }
     const blob = await zip.generateAsync({ type: "blob" });
     downloadBlob(`nerdx-remover-${post.slug}.zip`, blob);
 
     showStatus("success", `
         <strong>Pronto.</strong> Baixei <code>nerdx-remover-${post.slug}.zip</code> com o <code>api/posts.json</code>
-        ${updatedCategoryHtml ? `e a página da categoria` : ""} atualizados. Suba esses arquivos pro repositório (substituindo os existentes) e faça commit.
+        ${updatedCategoryHtml ? `, a página da categoria` : ""}${updatedHomeHtml ? ` e a home` : ""} atualizados. Suba esses arquivos pro repositório (substituindo os existentes) e faça commit.
         Se quiser apagar o arquivo do artigo também, delete manualmente <code>categorias/${post.categoriaSlug}/${post.slug}.html</code> no GitHub.
     `);
 

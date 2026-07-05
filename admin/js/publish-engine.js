@@ -386,6 +386,134 @@ ${footerBlock(depth)}
         return "<!DOCTYPE html>\n" + doc.documentElement.outerHTML;
     }
 
+    // ---------------------------------------------------------------
+    // HOME (index.html) — destaque + grids das últimas postagens.
+    // Recebe o HTML atual da home e a lista de posts (já ordenada do
+    // mais novo pro mais antigo) e devolve a home com o hero e os
+    // cards das últimas postagens atualizados, exatamente como
+    // updateCategoryIndexHTML faz para as páginas de categoria.
+    // ---------------------------------------------------------------
+
+    function tagFor(categoriaLabel) {
+        const found = NERDX_CATEGORIES[categoriaLabel];
+        return found ? found.tag : "noticias";
+    }
+
+    function buildHomePostCardHTML(post) {
+        const img = post.imagemDataUrl
+            ? ` style="background-image:url('${post.imagemDataUrl}');background-size:cover;background-position:center;"`
+            : "";
+        return `<article class="post-card" data-animate>
+            <div class="news-image"${img}></div>
+            <div class="post-body">
+                <span class="tag ${tagFor(post.categoria)}">${escapeHtml(post.categoria)}</span>
+                <h3><a href="${post.url}">${escapeHtml(post.titulo)}</a></h3>
+                <p>${escapeHtml(post.resumo || plainTextExcerpt(post.conteudo))}</p>
+                <div class="post-meta"><span>✍️ ${escapeHtml(post.autor || "Nerd-X")}</span><span>📅 ${post.data}</span></div>
+            </div>
+        </article>`;
+    }
+
+    function buildHomeMiniCardHTML(post) {
+        return `<article class="mini-card" data-animate>
+                    <span class="tag ${tagFor(post.categoria)}">${escapeHtml(post.categoria)}</span>
+                    <h4><a href="${post.url}">${escapeHtml(post.titulo)}</a></h4>
+                </article>`;
+    }
+
+    function buildHomeFeatureHTML(post) {
+        const img = post.imagemDataUrl
+            ? ` style="background-image:url('${post.imagemDataUrl}');background-size:cover;background-position:center;"`
+            : "";
+        return `<article class="news-feature" data-animate>
+                <div class="news-image"${img}></div>
+                <div class="news-content">
+                    <span class="tag ${tagFor(post.categoria)}">${escapeHtml(post.categoria)}</span>
+                    <h3>${escapeHtml(post.titulo)}</h3>
+                    <p>${escapeHtml(post.resumo || plainTextExcerpt(post.conteudo))}</p>
+                    <a href="${post.url}" class="read-more">Leia mais →</a>
+                </div>
+            </article>`;
+    }
+
+    function fillHomeCategorySection(doc, sectionId, gridId, items) {
+        const section = doc.getElementById(sectionId);
+        const grid = doc.getElementById(gridId);
+        if (!section || !grid) return;
+        if (!items.length) {
+            grid.innerHTML = "";
+            section.style.display = "none";
+            return;
+        }
+        grid.innerHTML = items.map(buildHomePostCardHTML).join("\n");
+        section.style.display = "";
+    }
+
+    // sortedPosts: array de posts (formato salvo no posts.json) já
+    // ordenados do mais recente pro mais antigo.
+    function updateHomeIndexHTML(currentHtml, sortedPosts) {
+        if (!Array.isArray(sortedPosts) || !sortedPosts.length) return null;
+
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(currentHtml, "text/html");
+        const main = doc.querySelector("main#conteudo");
+        if (!main) return null;
+
+        const latest = sortedPosts.slice(0, 8);
+        const top = latest[0];
+
+        // Destaque grande do topo (hero) — sempre o artigo mais recente.
+        const heroSection = doc.querySelector(".hero");
+        if (heroSection) {
+            const heroCategory = heroSection.querySelector(".hero-category");
+            const heroTitle = heroSection.querySelector("h1");
+            const heroText = heroSection.querySelector(".hero-info p");
+            const heroMainBtn = heroSection.querySelector(".hero-buttons .btn");
+            if (heroCategory) heroCategory.textContent = `🔥 ${top.categoria}`;
+            if (heroTitle) heroTitle.textContent = top.titulo;
+            if (heroText) heroText.textContent = top.resumo || plainTextExcerpt(top.conteudo);
+            if (heroMainBtn) heroMainBtn.setAttribute("href", top.url);
+        }
+
+        // Bloco "Últimas notícias" — destaque + 3 laterais + até 4 no grid.
+        const newsGrid = doc.getElementById("home-news-grid");
+        const latestGrid = doc.getElementById("home-latest-grid");
+
+        if (newsGrid) {
+            const [feature, ...rest] = latest;
+            const sideItems = rest.slice(0, 3);
+            const gridItems = rest.slice(3, 7);
+
+            newsGrid.innerHTML = `${buildHomeFeatureHTML(feature)}
+            <div class="news-side">
+                ${sideItems.map(buildHomeMiniCardHTML).join("\n")}
+            </div>`;
+            newsGrid.removeAttribute("data-fallback");
+
+            if (latestGrid) {
+                if (gridItems.length) {
+                    latestGrid.innerHTML = gridItems.map(buildHomePostCardHTML).join("\n");
+                    latestGrid.style.display = "";
+                } else {
+                    latestGrid.innerHTML = "";
+                    latestGrid.style.display = "none";
+                }
+            }
+        }
+
+        // Seções "Últimas de Ficção Científica" e "Últimas Reviews".
+        fillHomeCategorySection(
+            doc, "home-ficcao-section", "home-ficcao-grid",
+            sortedPosts.filter(p => p.categoria === "Ficção Científica").slice(0, 3)
+        );
+        fillHomeCategorySection(
+            doc, "home-reviews-section", "home-reviews-grid",
+            sortedPosts.filter(p => p.categoria === "Reviews").slice(0, 3)
+        );
+
+        return "<!DOCTYPE html>\n" + doc.documentElement.outerHTML;
+    }
+
     return {
         CATEGORIES: NERDX_CATEGORIES,
         slugify,
@@ -396,6 +524,7 @@ ${footerBlock(depth)}
         todayISO,
         buildArticleHTML,
         updateCategoryIndexHTML,
-        removeCategoryCard
+        removeCategoryCard,
+        updateHomeIndexHTML
     };
 })();
