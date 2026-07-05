@@ -9,11 +9,15 @@
     font-family: var(--font-mono); font-size: var(--fs-sm); color: var(--color-dust);
     margin-top: var(--space-5);
 }
-.article-cover {
-    aspect-ratio: 21/9;
-    border-radius: var(--radius-md);
-    margin-block: var(--space-8);
-    background: linear-gradient(135deg, rgba(255,61,87,0.3), rgba(47,230,198,0.2)), var(--color-panel-raised);
+.article-cover{
+    width:100%;
+    max-width:900px;
+    aspect-ratio:16/9;
+    margin:30px auto;
+    border-radius:var(--radius-md);
+    overflow:hidden;
+    background-position:center;
+    background-size:cover;
 }
 .article-body { max-width: 72ch; font-size: var(--fs-lg); }
 .article-body p { margin-bottom: var(--space-5); color: var(--color-paper); }
