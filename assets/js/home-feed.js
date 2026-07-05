@@ -36,8 +36,9 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     function postCard(post) {
         const tag = TAG_CLASS[post.categoria] || "noticias";
+        const img = post.imagem ? ` style="background-image:url('${post.imagem}');background-size:cover;background-position:center;"` : "";
         return `<article class="post-card" data-animate>
-            <div class="news-image"></div>
+            <div class="news-image"${img}></div>
             <div class="post-body">
                 <span class="tag ${tag}">${escapeHtml(post.categoria)}</span>
                 <h3><a href="${post.url}">${escapeHtml(post.titulo)}</a></h3>
@@ -57,10 +58,18 @@ document.addEventListener("DOMContentLoaded", async () => {
     const heroSection = document.querySelector(".hero");
     if (heroSection && latest.length) {
         const top = latest[0];
+        const heroCover = heroSection.querySelector(".hero-cover");
         const heroCategory = heroSection.querySelector(".hero-category");
         const heroTitle = heroSection.querySelector("h1");
         const heroText = heroSection.querySelector(".hero-info p");
         const heroMainBtn = heroSection.querySelector(".hero-buttons .btn");
+        if (heroCover) {
+            if (top.imagem) {
+                heroCover.style.backgroundImage = `url('${top.imagem}')`;
+            } else {
+                heroCover.removeAttribute("style");
+            }
+        }
         if (heroCategory) heroCategory.textContent = `🔥 ${top.categoria}`;
         if (heroTitle) heroTitle.textContent = top.titulo;
         if (heroText) heroText.textContent = top.resumo;
@@ -76,9 +85,10 @@ document.addEventListener("DOMContentLoaded", async () => {
         const gridItems = rest.slice(3, 7); // até 4 artigos extras => total de 8
 
         const tag = TAG_CLASS[feature.categoria] || "noticias";
+        const featureImg = feature.imagem ? ` style="background-image:url('${feature.imagem}');background-size:cover;background-position:center;"` : "";
         newsGrid.innerHTML = `
             <article class="news-feature" data-animate>
-                <div class="news-image"></div>
+                <div class="news-image"${featureImg}></div>
                 <div class="news-content">
                     <span class="tag ${tag}">${escapeHtml(feature.categoria)}</span>
                     <h3>${escapeHtml(feature.titulo)}</h3>

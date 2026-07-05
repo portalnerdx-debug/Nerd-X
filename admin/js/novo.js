@@ -97,7 +97,8 @@ form.addEventListener("submit", async (e) => {
             autor: post.autor,
             data: post.data,
             resumo: post.resumo,
-            url: `categorias/${post.categoriaSlug}/${post.slug}.html`
+            url: `categorias/${post.categoriaSlug}/${post.slug}.html`,
+            imagem: post.imagemDataUrl || null
         });
 
         // 4) Home (index.html), com o destaque e os cards das últimas

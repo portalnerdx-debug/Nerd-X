@@ -399,9 +399,13 @@ ${footerBlock(depth)}
         return found ? found.tag : "noticias";
     }
 
+    function coverOf(post) {
+        return post.imagem || post.imagemDataUrl || null;
+    }
+
     function buildHomePostCardHTML(post) {
-        const img = post.imagemDataUrl
-            ? ` style="background-image:url('${post.imagemDataUrl}');background-size:cover;background-position:center;"`
+        const img = coverOf(post)
+            ? ` style="background-image:url('${coverOf(post)}');background-size:cover;background-position:center;"`
             : "";
         return `<article class="post-card" data-animate>
             <div class="news-image"${img}></div>
@@ -422,8 +426,8 @@ ${footerBlock(depth)}
     }
 
     function buildHomeFeatureHTML(post) {
-        const img = post.imagemDataUrl
-            ? ` style="background-image:url('${post.imagemDataUrl}');background-size:cover;background-position:center;"`
+        const img = coverOf(post)
+            ? ` style="background-image:url('${coverOf(post)}');background-size:cover;background-position:center;"`
             : "";
         return `<article class="news-feature" data-animate>
                 <div class="news-image"${img}></div>
@@ -465,10 +469,19 @@ ${footerBlock(depth)}
         // Destaque grande do topo (hero) — sempre o artigo mais recente.
         const heroSection = doc.querySelector(".hero");
         if (heroSection) {
+            const heroCover = heroSection.querySelector(".hero-cover");
             const heroCategory = heroSection.querySelector(".hero-category");
             const heroTitle = heroSection.querySelector("h1");
             const heroText = heroSection.querySelector(".hero-info p");
             const heroMainBtn = heroSection.querySelector(".hero-buttons .btn");
+            if (heroCover) {
+                const img = coverOf(top);
+                if (img) {
+                    heroCover.style.backgroundImage = `url('${img}')`;
+                } else {
+                    heroCover.removeAttribute("style");
+                }
+            }
             if (heroCategory) heroCategory.textContent = `🔥 ${top.categoria}`;
             if (heroTitle) heroTitle.textContent = top.titulo;
             if (heroText) heroText.textContent = top.resumo || plainTextExcerpt(top.conteudo);
