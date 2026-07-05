@@ -6,7 +6,10 @@
     padding:25px 0 15px;
     border-bottom:1px solid var(--color-border);
 }
-.article-header h1 { font-size: var(--fs-9xl); text-transform: uppercase; max-width: 20ch; }
+.article-header h1{
+    font-size:clamp(2rem,5vw,3.6rem);
+    line-height:1.1;
+}
 .article-meta {
     display: flex; flex-wrap: wrap; gap: var(--space-4);
     font-family: var(--font-mono); font-size: var(--fs-sm); color: var(--color-dust);
