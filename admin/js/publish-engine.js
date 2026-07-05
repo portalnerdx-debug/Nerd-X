@@ -453,6 +453,46 @@ ${footerBlock(depth)}
         section.style.display = "";
     }
 
+    // Cria (se ainda não existir) e preenche a seção "Últimas postagens"
+    // no rodapé da home, com até 10 cards no mesmo formato usado nas
+    // páginas de categoria (.post-grid > .post-card).
+    function ensureHomeLatestPostsSection(doc, items) {
+        let grid = doc.getElementById("home-latest-posts-grid");
+
+        if (!grid) {
+            const section = doc.createElement("section");
+            section.id = "home-latest-posts-section";
+            const container = doc.createElement("div");
+            container.className = "container";
+            container.innerHTML = `<div class="section-title-wrap">
+                <div>
+                    <span class="section-eyebrow">// Tudo por aqui</span>
+                    <h2 class="section-title">Últimas postagens</h2>
+                </div>
+            </div>
+            <div class="post-grid" id="home-latest-posts-grid"></div>`;
+            section.appendChild(container);
+
+            // Insere antes da seção "Categorias" quando ela existir;
+            // caso contrário, no fim do main.
+            const categoriesHeading = Array.from(doc.querySelectorAll(".section-title"))
+                .find(el => el.textContent.trim() === "Categorias");
+            const categoriesSection = categoriesHeading ? categoriesHeading.closest("section") : null;
+            const main = doc.querySelector("main#conteudo");
+
+            if (categoriesSection && categoriesSection.parentNode) {
+                categoriesSection.parentNode.insertBefore(section, categoriesSection);
+            } else if (main) {
+                main.appendChild(section);
+            }
+
+            grid = doc.getElementById("home-latest-posts-grid");
+        }
+
+        if (!grid) return;
+        grid.innerHTML = items.map(buildHomePostCardHTML).join("\n");
+    }
+
     // sortedPosts: array de posts (formato salvo no posts.json) já
     // ordenados do mais recente pro mais antigo.
     function updateHomeIndexHTML(currentHtml, sortedPosts) {
@@ -523,6 +563,11 @@ ${footerBlock(depth)}
             doc, "home-reviews-section", "home-reviews-grid",
             sortedPosts.filter(p => p.categoria === "Reviews").slice(0, 3)
         );
+
+        // Bloco "Últimas postagens" — sempre as 10 mais recentes de
+        // qualquer categoria, no mesmo estilo de card usado nas páginas
+        // de categoria (post-grid / post-card).
+        ensureHomeLatestPostsSection(doc, sortedPosts.slice(0, 10));
 
         return "<!DOCTYPE html>\n" + doc.documentElement.outerHTML;
     }
