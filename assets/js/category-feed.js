@@ -109,17 +109,3 @@ document.addEventListener("DOMContentLoaded", async () => {
     // sempre em sincronia com o api/posts.json.
     grid.innerHTML = items.map(postCard).join("");
 });
-
-window.addEventListener("scroll",()=>{
-
-    if(window.scrollY>80){
-
-        document.body.classList.add("category-scroll");
-
-    }else{
-
-        document.body.classList.remove("category-scroll");
-
-    }
-
-});

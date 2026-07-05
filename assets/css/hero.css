@@ -23,14 +23,21 @@
 }
 
 .hero-overlay {
+    /* Contraste garantido: independentemente da cor/brilho da foto de fundo,
+       a área onde o texto fica (rodapé do hero) precisa continuar escura.
+       Um degradê diagonal (efeito visual) + um degradê vertical forte
+       colado no rodapé asseguram isso sempre, não só quando a foto ajuda. */
     position: absolute;
     inset: 0;
-    background: linear-gradient(120deg, rgba(13,15,20,0.55) 0%, transparent 60%);
+    background:
+        linear-gradient(120deg, rgba(13,15,20,0.55) 0%, transparent 55%),
+        linear-gradient(0deg, rgba(6,7,10,0.96) 0%, rgba(6,7,10,0.78) 32%, rgba(6,7,10,0.25) 62%, transparent 85%);
     pointer-events: none;
 }
 
 .hero-content {
     position: relative;
+    z-index: 1;
     padding-block: var(--space-10) var(--space-10);
     display: grid;
 }
@@ -54,28 +61,26 @@
 .hero-info h1 {
     font-size: var(--fs-9xl);
     text-transform: uppercase;
-    color: var(--color-paper);
+    /* Branco fixo (não depende do tema) + sombra de texto: garante leitura
+       mesmo em fotos claras, sem depender só do overlay atrás. */
+    color: #FFFFFF;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.35), 0 8px 24px rgba(0,0,0,0.55);
     margin-bottom: var(--space-5);
     text-wrap: balance;
-    text-shadow:0 4px 15px rgba(0,0,0,.85);
 }
 
 .hero-info p {
     font-size: var(--fs-lg);
-    color: var(--color-dust);
+    color: #DADEE8;
+    text-shadow: 0 1px 6px rgba(0,0,0,0.6);
     max-width: 58ch;
     margin-bottom: var(--space-6);
-    text-shadow:0 2px 8px rgba(0,0,0,.8);
 }
 
 .hero-buttons {
     display: flex;
     flex-wrap: wrap;
     gap: var(--space-4);
-}
-
-.hero-category{
-    text-shadow:0 2px 6px rgba(0,0,0,.7);
 }
 
 @media (max-width: 640px) {

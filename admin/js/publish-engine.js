@@ -261,9 +261,14 @@ ${SCRIPTS.map(s => `<script src="${depth}assets/js/${s}"></script>`).join("\n")}
 
     function buildArticleHTML(post) {
         const depth = "../../";
-        const coverBlock = post.imagemDataUrl
-            ? `<div class="article-cover" style="background-image:url('${post.imagemDataUrl}');background-size:cover;background-position:center;"></div>`
-            : `<div class="article-cover"></div>`;
+        // Título e foto de capa vivem juntos em .article-hero (um bloco normal
+        // do fluxo, nunca fixed/sticky), com um scrim garantindo contraste do
+        // texto sobre a foto. Assim o título nunca cobre a foto além do
+        // necessário nem o corpo do artigo: ao rolar, o hero sai de tela como
+        // qualquer elemento comum e o texto do artigo aparece na sequência.
+        const coverStyle = post.imagemDataUrl
+            ? ` style="background-image:url('${post.imagemDataUrl}');background-size:cover;background-position:center;"`
+            : "";
 
         return `<!DOCTYPE html>
 <html lang="pt-BR">
@@ -281,16 +286,18 @@ ${headerNavBlock(depth, post.categoriaSlug)}
             <span>${escapeHtml(post.titulo)}</span>
         </nav>
 
-        <header class="article-header">
-            <span class="tag ${post.categoriaTag}">${escapeHtml(post.categoria)}</span>
-            <h1>${escapeHtml(post.titulo)}</h1>
-            <div class="article-meta">
-                <span>✍️ ${escapeHtml(post.autor || "Nerd-X")}</span>
-                <span>📅 ${post.data}</span>
+        <header class="article-hero">
+            <div class="article-hero-cover"${coverStyle}></div>
+            <div class="article-hero-scrim"></div>
+            <div class="article-hero-content">
+                <span class="tag ${post.categoriaTag}">${escapeHtml(post.categoria)}</span>
+                <h1>${escapeHtml(post.titulo)}</h1>
+                <div class="article-meta">
+                    <span>✍️ ${escapeHtml(post.autor || "Nerd-X")}</span>
+                    <span>📅 ${post.data}</span>
+                </div>
             </div>
         </header>
-
-        ${coverBlock}
 
         <div class="article-body">
             ${post.conteudoHtml}
