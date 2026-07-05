@@ -2,7 +2,10 @@
    Aplicado quando as matérias individuais forem publicadas
    (layouts/article.html). Mantido separado do sections.css
    porque artigos têm largura de leitura e tipografia próprias. */
-.article-header { padding-block: var(--space-8) var(--space-6); border-bottom: 1px solid var(--color-border); }
+.article-header{
+    padding:25px 0 15px;
+    border-bottom:1px solid var(--color-border);
+}
 .article-header h1 { font-size: var(--fs-9xl); text-transform: uppercase; max-width: 20ch; }
 .article-meta {
     display: flex; flex-wrap: wrap; gap: var(--space-4);
