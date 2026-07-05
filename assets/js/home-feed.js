@@ -150,4 +150,57 @@ document.addEventListener("DOMContentLoaded", async () => {
     fillCategorySection("Tecnologia", "home-tecnologia-section", "home-tecnologia-grid");
     fillCategorySection("Ficção Científica", "home-ficcao-section", "home-ficcao-grid");
     fillCategorySection("Reviews", "home-reviews-section", "home-reviews-grid");
+
+    // Bloco "Últimas postagens" (rodapé da home) — junta as 10 mais
+    // recentes de QUALQUER categoria. O painel admin cria/atualiza esse
+    // bloco no HTML estático na hora de publicar, mas até agora esta
+    // página não sabia atualizá-lo sozinha: se o index.html publicado
+    // não fosse resubido certinho depois de excluir/editar um artigo,
+    // os cards antigos ficavam presos aqui pra sempre. Agora ele também
+    // fica em sincronia direta com o api/posts.json, igual as outras
+    // seções acima.
+    (function fillHomeLatestPostsSection() {
+        const items = sorted.slice(0, 10);
+        let section = document.getElementById("home-latest-posts-section");
+        let grid = document.getElementById("home-latest-posts-grid");
+
+        if (!items.length) {
+            if (grid) grid.innerHTML = "";
+            if (section) section.style.display = "none";
+            return;
+        }
+
+        if (!grid) {
+            // Primeira vez que existem posts o suficiente pra essa seção
+            // aparecer e ela ainda não foi criada no HTML — cria do zero.
+            const main = document.getElementById("conteudo");
+            if (!main) return;
+
+            section = document.createElement("section");
+            section.id = "home-latest-posts-section";
+            const container = document.createElement("div");
+            container.className = "container";
+            container.innerHTML = `<div class="section-title-wrap">
+                <div>
+                    <span class="section-eyebrow">// Tudo por aqui</span>
+                    <h2 class="section-title">Últimas postagens</h2>
+                </div>
+            </div>
+            <div class="post-grid" id="home-latest-posts-grid"></div>`;
+            section.appendChild(container);
+
+            const categoriesHeading = Array.from(main.querySelectorAll(".section-title"))
+                .find(el => el.textContent.trim() === "Categorias");
+            const categoriesSection = categoriesHeading ? categoriesHeading.closest("section") : null;
+            if (categoriesSection && categoriesSection.parentNode) {
+                categoriesSection.parentNode.insertBefore(section, categoriesSection);
+            } else {
+                main.appendChild(section);
+            }
+            grid = document.getElementById("home-latest-posts-grid");
+        }
+
+        grid.innerHTML = items.map(postCard).join("");
+        section.style.display = "";
+    })();
 });
