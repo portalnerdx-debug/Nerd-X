@@ -40,6 +40,18 @@
 
 <section class="recent">
     <h2>Artigos publicados</h2>
+
+    <div id="bulkToolbar" class="bulk-toolbar" style="display:none;">
+        <label class="bulk-select-all">
+            <input type="checkbox" id="selectAll">
+            Selecionar todos
+        </label>
+        <span id="selectedCount" class="bulk-count">0 selecionados</span>
+        <button id="bulkDeleteBtn" class="button danger" type="button" disabled>
+            <i class="fas fa-trash"></i> Excluir selecionados
+        </button>
+    </div>
+
     <div id="postList">Carregando...</div>
 </section>
 
