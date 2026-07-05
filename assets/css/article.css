@@ -34,3 +34,12 @@
 .article-body a { color: var(--color-volt); text-decoration: underline; text-underline-offset: 3px; }
 .article-body a:hover, .article-body a:focus-visible { color: var(--color-signal); }
 .article-share { display: flex; gap: var(--space-3); margin-block: var(--space-8); }
+
+.article-header,
+.article-cover,
+.article-body,
+.article-share{
+    max-width:900px;
+    margin-left:auto;
+    margin-right:auto;
+}
