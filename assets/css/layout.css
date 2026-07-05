@@ -60,22 +60,24 @@ section {
 }
 
 .page-hero {
-    padding-block: var(--space-10) var(--space-8);
+    padding: 30px 0 20px;
     border-bottom: 1px solid var(--color-border);
     background:
-        radial-gradient(ellipse at top left, rgba(255, 61, 87, 0.12), transparent 55%),
-        radial-gradient(ellipse at bottom right, rgba(47, 230, 198, 0.10), transparent 55%);
+        radial-gradient(ellipse at top left, rgba(255,61,87,.12), transparent 55%),
+        radial-gradient(ellipse at bottom right, rgba(47,230,198,.10), transparent 55%);
 }
 .page-hero .section-eyebrow { margin-bottom: var(--space-3); }
-.page-hero h1 {
-    font-size: var(--fs-9xl);
+.page-hero h1{
+    font-size: clamp(2rem,5vw,3.8rem);
     text-transform: uppercase;
-    margin-bottom: var(--space-4);
+    margin-bottom: 10px;
+    line-height:1.05;
 }
-.page-hero p {
-    max-width: 60ch;
-    color: var(--color-dust);
-    font-size: var(--fs-lg);
+.page-hero p{
+    max-width:60ch;
+    color:var(--color-dust);
+    font-size:1rem;
+    margin-bottom:0;
 }
 
 .prose { max-width: 72ch; }
