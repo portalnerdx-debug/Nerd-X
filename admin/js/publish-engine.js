@@ -528,33 +528,57 @@ ${footerBlock(depth)}
             if (heroMainBtn) heroMainBtn.setAttribute("href", top.url);
         }
 
-        // Bloco "Últimas notícias" — destaque + 3 laterais + até 4 no grid.
+        // Bloco "Últimas notícias" — mostra APENAS posts da categoria
+        // "Notícias" (destaque + 3 laterais + até 4 no grid). Cada seção
+        // da home deve refletir a própria categoria, não a mistura de todas.
         const newsGrid = doc.getElementById("home-news-grid");
         const latestGrid = doc.getElementById("home-latest-grid");
+        const newsSection = newsGrid ? newsGrid.closest("section") : null;
+        const noticiasPosts = sortedPosts.filter(p => p.categoria === "Notícias");
 
         if (newsGrid) {
-            const [feature, ...rest] = latest;
-            const sideItems = rest.slice(0, 3);
-            const gridItems = rest.slice(3, 7);
+            if (!noticiasPosts.length) {
+                newsGrid.innerHTML = "";
+                if (latestGrid) { latestGrid.innerHTML = ""; latestGrid.style.display = "none"; }
+                if (newsSection) newsSection.style.display = "none";
+            } else {
+                const [feature, ...rest] = noticiasPosts;
+                const sideItems = rest.slice(0, 3);
+                const gridItems = rest.slice(3, 7);
 
-            newsGrid.innerHTML = `${buildHomeFeatureHTML(feature)}
+                newsGrid.innerHTML = `${buildHomeFeatureHTML(feature)}
             <div class="news-side">
                 ${sideItems.map(buildHomeMiniCardHTML).join("\n")}
             </div>`;
-            newsGrid.removeAttribute("data-fallback");
+                newsGrid.removeAttribute("data-fallback");
+                if (newsSection) newsSection.style.display = "";
 
-            if (latestGrid) {
-                if (gridItems.length) {
-                    latestGrid.innerHTML = gridItems.map(buildHomePostCardHTML).join("\n");
-                    latestGrid.style.display = "";
-                } else {
-                    latestGrid.innerHTML = "";
-                    latestGrid.style.display = "none";
+                if (latestGrid) {
+                    if (gridItems.length) {
+                        latestGrid.innerHTML = gridItems.map(buildHomePostCardHTML).join("\n");
+                        latestGrid.style.display = "";
+                    } else {
+                        latestGrid.innerHTML = "";
+                        latestGrid.style.display = "none";
+                    }
                 }
             }
         }
 
-        // Seções "Últimas de Ficção Científica" e "Últimas Reviews".
+        // Seções por categoria — cada uma mostra somente as próprias
+        // últimas postagens (a home nunca mistura categorias aqui).
+        fillHomeCategorySection(
+            doc, "home-marvel-section", "home-marvel-grid",
+            sortedPosts.filter(p => p.categoria === "Marvel").slice(0, 3)
+        );
+        fillHomeCategorySection(
+            doc, "home-dc-section", "home-dc-grid",
+            sortedPosts.filter(p => p.categoria === "DC").slice(0, 3)
+        );
+        fillHomeCategorySection(
+            doc, "home-tecnologia-section", "home-tecnologia-grid",
+            sortedPosts.filter(p => p.categoria === "Tecnologia").slice(0, 3)
+        );
         fillHomeCategorySection(
             doc, "home-ficcao-section", "home-ficcao-grid",
             sortedPosts.filter(p => p.categoria === "Ficção Científica").slice(0, 3)

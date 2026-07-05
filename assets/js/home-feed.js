@@ -1,7 +1,8 @@
 /* =========================================================
    HOME FEED — puxa os artigos publicados (api/posts.json)
-   e preenche a home SEMPRE com os 8 artigos mais recentes,
-   de qualquer categoria, ordenados por data (mais novo primeiro).
+   e preenche cada seção da home com as últimas postagens da
+   PRÓPRIA categoria (Notícias, Marvel, DC, Tecnologia, Ficção
+   Científica e Reviews nunca se misturam entre si).
    Se não houver nenhum post publicado ainda, a home mantém o
    conteúdo estático de exemplo.
    ========================================================= */
@@ -51,7 +52,8 @@ document.addEventListener("DOMContentLoaded", async () => {
     // Ordena TODOS os posts (de qualquer categoria) do mais recente para o mais antigo.
     const sorted = posts.slice().sort((a, b) => parseDate(b.data) - parseDate(a.data));
 
-    // Os 8 artigos mais recentes do site inteiro substituem o bloco estático da home.
+    // Os 8 artigos mais recentes do site inteiro (usados só no hero e na
+    // seção genérica "Últimas postagens" lá embaixo, que junta tudo).
     const latest = sorted.slice(0, 8);
 
     // Destaque grande do topo (hero) — sempre o artigo mais recente do site.
@@ -76,56 +78,76 @@ document.addEventListener("DOMContentLoaded", async () => {
         if (heroMainBtn) heroMainBtn.setAttribute("href", top.url);
     }
 
+    // Bloco "Últimas notícias" — mostra SOMENTE posts da categoria
+    // "Notícias" (destaque + 3 laterais + até 4 no grid extra).
     const newsGrid = document.getElementById("home-news-grid");
     const latestGrid = document.getElementById("home-latest-grid");
+    const newsSection = newsGrid ? newsGrid.closest("section") : null;
+    const noticiasPosts = sorted.filter(p => p.categoria === "Notícias");
 
-    if (newsGrid && latest.length) {
-        const [feature, ...rest] = latest;
-        const sideItems = rest.slice(0, 3);
-        const gridItems = rest.slice(3, 7); // até 4 artigos extras => total de 8
+    if (newsGrid) {
+        if (!noticiasPosts.length) {
+            newsGrid.innerHTML = "";
+            if (latestGrid) { latestGrid.innerHTML = ""; latestGrid.style.display = "none"; }
+            if (newsSection) newsSection.style.display = "none";
+        } else {
+            const [feature, ...rest] = noticiasPosts;
+            const sideItems = rest.slice(0, 3);
+            const gridItems = rest.slice(3, 7);
 
-        const tag = TAG_CLASS[feature.categoria] || "noticias";
-        const featureImg = feature.imagem ? ` style="background-image:url('${feature.imagem}');background-size:cover;background-position:center;"` : "";
-        newsGrid.innerHTML = `
-            <article class="news-feature" data-animate>
-                <div class="news-image"${featureImg}></div>
-                <div class="news-content">
-                    <span class="tag ${tag}">${escapeHtml(feature.categoria)}</span>
-                    <h3>${escapeHtml(feature.titulo)}</h3>
-                    <p>${escapeHtml(feature.resumo)}</p>
-                    <a href="${feature.url}" class="read-more">Leia mais →</a>
+            const tag = TAG_CLASS[feature.categoria] || "noticias";
+            const featureImg = feature.imagem ? ` style="background-image:url('${feature.imagem}');background-size:cover;background-position:center;"` : "";
+            newsGrid.innerHTML = `
+                <article class="news-feature" data-animate>
+                    <div class="news-image"${featureImg}></div>
+                    <div class="news-content">
+                        <span class="tag ${tag}">${escapeHtml(feature.categoria)}</span>
+                        <h3>${escapeHtml(feature.titulo)}</h3>
+                        <p>${escapeHtml(feature.resumo)}</p>
+                        <a href="${feature.url}" class="read-more">Leia mais →</a>
+                    </div>
+                </article>
+                <div class="news-side">
+                    ${sideItems.map(p => `<article class="mini-card" data-animate>
+                        <span class="tag ${TAG_CLASS[p.categoria] || "noticias"}">${escapeHtml(p.categoria)}</span>
+                        <h4><a href="${p.url}">${escapeHtml(p.titulo)}</a></h4>
+                    </article>`).join("")}
                 </div>
-            </article>
-            <div class="news-side">
-                ${sideItems.map(p => `<article class="mini-card" data-animate>
-                    <span class="tag ${TAG_CLASS[p.categoria] || "noticias"}">${escapeHtml(p.categoria)}</span>
-                    <h4><a href="${p.url}">${escapeHtml(p.titulo)}</a></h4>
-                </article>`).join("")}
-            </div>
-        `;
+            `;
+            if (newsSection) newsSection.style.display = "";
 
-        if (latestGrid) {
-            if (gridItems.length) {
-                latestGrid.innerHTML = gridItems.map(postCard).join("");
-                latestGrid.style.display = "";
-            } else {
-                latestGrid.innerHTML = "";
-                latestGrid.style.display = "none";
+            if (latestGrid) {
+                if (gridItems.length) {
+                    latestGrid.innerHTML = gridItems.map(postCard).join("");
+                    latestGrid.style.display = "";
+                } else {
+                    latestGrid.innerHTML = "";
+                    latestGrid.style.display = "none";
+                }
             }
         }
     }
 
-    // Últimas de Ficção Científica e Reviews (seções ficam ocultas se vazias)
+    // Seções por categoria (Marvel, DC, Tecnologia, Ficção Científica e
+    // Reviews) — cada uma mostra somente as próprias últimas postagens.
+    // A seção some sozinha quando a categoria ainda não tem nada publicado.
     function fillCategorySection(categoriaLabel, sectionId, gridId) {
         const items = sorted.filter(p => p.categoria === categoriaLabel).slice(0, 3);
-        if (!items.length) return;
         const section = document.getElementById(sectionId);
         const grid = document.getElementById(gridId);
         if (!section || !grid) return;
+        if (!items.length) {
+            grid.innerHTML = "";
+            section.style.display = "none";
+            return;
+        }
         grid.innerHTML = items.map(postCard).join("");
         section.style.display = "";
     }
 
+    fillCategorySection("Marvel", "home-marvel-section", "home-marvel-grid");
+    fillCategorySection("DC", "home-dc-section", "home-dc-grid");
+    fillCategorySection("Tecnologia", "home-tecnologia-section", "home-tecnologia-grid");
     fillCategorySection("Ficção Científica", "home-ficcao-section", "home-ficcao-grid");
     fillCategorySection("Reviews", "home-reviews-section", "home-reviews-grid");
 });
