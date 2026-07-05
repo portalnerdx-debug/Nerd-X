@@ -10,3 +10,12 @@
     .news-content { padding: var(--space-5); }
     .footer-bottom { flex-direction: column; text-align: center; }
 }
+
+@media (max-width:768px){
+
+    .category-header{
+        top:65px;
+        padding:8px 0;
+    }
+
+}
