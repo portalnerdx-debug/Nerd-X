@@ -1,4 +1,0 @@
-User-agent: *
-Allow: /
-
-Sitemap: https://nerdx.com.br/sitemap.xml
