@@ -21,13 +21,13 @@
     "url": "categorias/noticias/teste3.html"
   },
   {
-    "titulo": "teste2",
-    "slug": "teste2",
-    "categoria": "Reviews",
-    "categoriaSlug": "reviews",
+    "titulo": "teste",
+    "slug": "teste",
+    "categoria": "Notícias",
+    "categoriaSlug": "noticias",
     "autor": "Nerd-X",
     "data": "2026-07-04",
-    "resumo": "gfdjjjdjh",
-    "url": "categorias/reviews/teste2.html"
+    "resumo": "fsgsfgf",
+    "url": "categorias/noticias/teste.html"
   }
 ]
